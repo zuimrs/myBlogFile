@@ -28,10 +28,10 @@
 ![重装完成][7]
 
 
-  [1]: ./7ead16b919ea8c1a.png
-  [2]: ./e2efa60d1fff9c4f.png
-  [3]: ./8e9605a715ab2bac.png
-  [4]: ./c7e9d1cb3328ddd8.png
-  [5]: ./c5f94e48a091c3d2.png
-  [6]: ./2d94daec5e712e1c.png
-  [7]: ./2321f1ff350c790e.png
+  [1]: https://github.com/zuimrs/myBlogFile/raw/master/B002/7ead16b919ea8c1a.png
+  [2]: https://github.com/zuimrs/myBlogFile/raw/master/B002/e2efa60d1fff9c4f.png
+  [3]: https://github.com/zuimrs/myBlogFile/raw/master/B002/8e9605a715ab2bac.png
+  [4]: https://github.com/zuimrs/myBlogFile/raw/master/B002/c7e9d1cb3328ddd8.png
+  [5]: https://github.com/zuimrs/myBlogFile/raw/master/B002/c5f94e48a091c3d2.png
+  [6]: https://github.com/zuimrs/myBlogFile/raw/master/B002/2d94daec5e712e1c.png
+  [7]: https://github.com/zuimrs/myBlogFile/raw/master/B002/2321f1ff350c790e.png
