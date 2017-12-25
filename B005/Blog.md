@@ -67,5 +67,5 @@
 　　一个好用的，适合自己的个性化shell配置不仅赏心悦目，更是能提高你的开发效率，所以还在等什么呢？赶紧配置起来吧。
 
   [1]: http://ohmyz.sh/img/themes/eastwood.jpg
-  [2]: https://github.com/zuimrs/myBlogFile/tree/master/B005/ea2365365183e511.png
-  [3]: https://github.com/zuimrs/myBlogFile/tree/master/B005/d0654e7525ac7bc4.png
+  [2]: https://github.com/zuimrs/myBlogFile/raw/master/B005/ea2365365183e511.png
+  [3]: https://github.com/zuimrs/myBlogFile/raw/master/B005/d0654e7525ac7bc4.png
