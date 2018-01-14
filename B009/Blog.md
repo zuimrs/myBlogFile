@@ -1,58 +1,47 @@
-﻿> 　　开发时，不同Python项目使用的框架可能依赖相同的库，但是对应版本不同，版本安装的不合适就会各种报错，非常蛋疼，又不能每次开发都来回安装对应的版本库，所以将不同项目的环境隔离开，使用各自的虚拟环境，解决包冲突问题。
-　　virtualenv是Python多版本管理的利器,本节主要记录下virtualenv的安装和使用。
+﻿>　　前面零零散散的介绍了环境配置，这里进行一下小结，一是将之前的各种配置按流程来一遍，看一下是否有纰漏，二是记录下网站的部署结构，为之后nginx+uWSGI+Django建站服务。
 
 [toc]
-# 前言
-　　笔者比较穷，一台服务器可能要干好多活，所以开发环境和生产环境都要装一下virtualenv啦，如果生产环境的服务器只做搭建网站使用，则大可不必这样，直接配置目标环境就好。
-# 安装virutalenv
-## 通过apt安装
-　　ubuntu用户可以直接通过apt进行安装。
-
-    $ sudo apt install python-virtualenv
-
-## 通过pip安装
-　　如果没有pip的话，先安装并更新下pip吧。
-
-``` shell
-$ sudo apt install python-pip
-$ sudo pip install -U pip
+#前言
+　　此次主要任务是在服务器**/var/**文件夹下建立一个git空仓库托管网站源码，并在**/var/www/**建立项目文件夹以部署网站源码，如果无特殊说明，以下命令均在服务器端执行。
+#主要流程
+## 创建裸仓库
+```Shell
+    $ sudo -s       // 进入root模式
+    $ git init --bare /var/git/website.git  
+        // 在var/git/下初始化不含工作区的裸仓库
+    $ chown -R git:git /var/git/
+        // 修改拥有者和组为git
+    $ chmod -R 777 /var/git/
+        // 权限改为所有用户可读可写可执行
 ```
-　　通过pip安装virtualenv：
+## 添加公钥
+　　将服务器root用户公钥添加至git用户的**authorized_keys**中，使root用户可以使用git clone操作更新代码文件。
+```Shell
+    ......          // 仍为root模式
+    $ cd /root      // 进入root目录
+    $ ssh-keygen    // 为root生成密钥
+    $ cat id_rsa.pub >> /home/git/.ssh/authorized_keys
+```
+　　root用户ssh登录git进行验证。
+```Shell
+    $ ssh git@localhost
+```
+![root用户ssh登录git][1]
+　　之前关闭了git用户的ssh登录，所以无法进入git用户的shell.
+## git clone
+　　服务器端：
+```Shell
+    $ git clone git@localhost:/var/git/website.git \
+            /var/www/com.域名.blog
+        // git clone空仓库并指定项目名
+```
+　　建议使用[顶级域名.一级域名.二级域名]的命名方式,部署在**/var/www/**文件夹下，便于管理。
+　　本地：
+```Shell
+    $ git clone git@服务器主机名或IP:/var/git/website.git 项目名
+```
+　　本地仅做开发和测试用途，项目存放到一个常用的文件夹下就好。
+#结语
+　　在本地进行开发，git push到服务器的git仓库中，并登录服务器的root用户进行git clone操作更新项目代码。
 
-    $ sudo pip install virtualenv
-
-# virtualenv的使用
-## 创建环境
-### 常用命令
-　　在当前目录下创建一个新环境目录（会复制系统已安装的第三方包）：
-
-    $ virtualenv 环境名
-
-　　在当前目录下创建一个新环境目录并指定Python版本为python2.7:
-
-    $ virtualenv 环境名 --python=python2.7
-
-　　在当前目录下创建一个不含第三方包的干净环境:
-
-    $ virtualenv 环境名 --no-site-packages
-
-### 其他
-　　利用--help参数查看其他参数含义，这里就不赘述了。
-
-    $ virtualenv --help
-
-![virtualenv --help][1]
-
-## 使用环境
-
-    $ source 环境名/bin/activate
-
-![env27虚拟环境][2]
-如图，笔者创建了一个空的Python2.7环境，名为env27，使用source命令后，命令提示符改变，增加了(env27)前缀，表示当前环境是刚才配置的Python环境。
-
-
-# 结语
-　　因为笔者构想是用nginx+Django+uWSGI建站，所以django和uWSGI包就需要在虚环境下安装咯。
-
-  [1]: https://github.com/zuimrs/myBlogFile/raw/master/B009/7ff00c22a8f308e6.png
-  [2]: https://github.com/zuimrs/myBlogFile/raw/master/B009/3169793c9293c869.png
+  [1]: https://github.com/zuimrs/myBlogFile/raw/master/B009/408cf91e9fb62305.png
