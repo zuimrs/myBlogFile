@@ -1,4 +1,4 @@
-﻿> 　　开发时，不同Python项目使用的框架可能依赖相同的库，但是对应版本不同，版本安装的不合适就会各种报错，非常蛋疼，又不能每次开发都来回安装对应的版本库，所以将不同项目的环境隔离开，使用各自的虚拟环境，解决包冲突问题。
+> 　　开发时，不同Python项目使用的框架可能依赖相同的库，但是对应版本不同，版本安装的不合适就会各种报错，非常蛋疼，又不能每次开发都来回安装对应的版本库，所以将不同项目的环境隔离开，使用各自的虚拟环境，解决包冲突问题。
 　　virtualenv是Python多版本管理的利器,本节主要记录下virtualenv的安装和使用。
 
 [toc]
@@ -54,7 +54,7 @@ $ sudo pip install -U pip
     $ deactivate
 
 # 结语
-　　因为笔者构想是用nginx+Django+uWSGI建站，所以django和uWSGI包就需要在虚环境下安装咯。
+　　熟悉虚环境的操作后，下节就可以开始配置nginx和uWSGI服务器了。
 
   [1]: https://github.com/zuimrs/myBlogFile/raw/master/B012/7ff00c22a8f308e6.png
   [2]: https://github.com/zuimrs/myBlogFile/raw/master/B012/3169793c9293c869.png
