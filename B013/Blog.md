@@ -1,4 +1,4 @@
-﻿> 　　Django虽然自带一个Server，但只能作为开发时测试使用，我们需要一个可以稳定而持续的服务器对网站进行部署，比如Apache, Nginx, lighttpd等，本篇将以 nginx + uWSGI + Django 为例。
+> 　　Django虽然自带一个Server，但只能作为开发时测试使用，我们需要一个可以稳定而持续的服务器对网站进行部署，比如Apache, Nginx, lighttpd等，本篇将利用nginx和uWSGI部署Django网站项目。
 
 [toc]
 #前言
@@ -50,14 +50,20 @@
     $ django-admin startproject test_nginx
                     // 创建名为“test_nginx”的Django项目
 ```
+　　Django会用模板创建一个名为“test_nginx”的默认项目。
+
 ![Django 测试项目][1]
 ### 测试Django服务器
+　　利用Django自带的测试服务器来直接处理客户端的http访问请求，测试Django能否正常工作。
+
 ![Django Server][2]
+
+　　注意，首先要修改settings.py配置文件，添加ALLOWED_HOSTS，否则会报错。
 　　进入./test_nginx/test_nginx，利用vim修改settings.py中的“ALLOWED_HOSTS”。
 ```python
     ...
     
-        ALLOWED_HOSTS = ['*'] 
+        ALLOWED_HOSTS = ['*']   // 允许所有地址
     
     ...
 ```
@@ -71,6 +77,7 @@
                     // 8000端口，启用Django服务器
 ```
 　　本地浏览器输入"服务器IP:8000"，显示
+
 ![Django welcome页面][3]
 ## uWSGI部分 
 ### 安装uWSGI
@@ -91,8 +98,11 @@ def application(env, start_response):
     $ uwsgi --http :8000 --wsgi-file test.py
 ```
 　　本地浏览器刷新页面，显示
+
 ![uWSGI welcome页面][4]
 ### uWSGI+Django测试
+　　利用uWSGI作为服务器处理http请求,并通过wsgi传递给Django模块。
+
 ![uWSGI+Django][5]
 　　终端运行：
 ```Shell
@@ -101,6 +111,7 @@ def application(env, start_response):
     $ uwsgi --http :8000 --module test_nginx.wsgi
 ```
 　　本地浏览器刷新页面，显示
+
 ![Django welcome页面][3]
 ## nginx部分
 ### 安装nginx
@@ -122,6 +133,7 @@ def application(env, start_response):
         $ service nginx restart
 ### 测试nginx服务器状态
 　　启动nginx服务器后，本地浏览器输入"服务器IP:80"，如下图显示说明nginx工作正常。
+　　
 ![nginx welcome页面][6]
 
 
